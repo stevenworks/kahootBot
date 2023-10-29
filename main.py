@@ -19,7 +19,7 @@ try:
     import argparse
 except ModuleNotFoundError:
 	if "y" in input("Install dependencies? [y/N] > ").lower():
-		os.system('python3 -m pip install -r requirements.txt')
+		os.system("python3 -m pip install -r requirements.txt")
 
 # Configuration file
 def read_config(config_file):
