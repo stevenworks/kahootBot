@@ -32,6 +32,7 @@ def read_config(config_file):
 parser = argparse.ArgumentParser(description="Kahoot Bot")
 parser.add_argument("--debug", action="store_true", help="Enable debug mode")
 parser.add_argument("--nickname", type=str, help="Your Kahoot nickname")
+parser.add_argument("--gamepin", type=int, help="Your Kahoot game-pin")
 args = parser.parse_args()
 log_level = logging.DEBUG if args.debug else logging.INFO
 logging.basicConfig(filename="kahoot_bot.log", level=logging.INFO, format="%(asctime)s [%(levelname)s] - %(message)s")
@@ -60,10 +61,11 @@ class KahootBot:
                 Whether to run bot in headless mode
         """
         self.driver = self.init_driver(is_headless)
-        self.model = self.init_model()
+        #self.model = self.init_model()
 
         if nickname == None:
             self.nickname = self.__class__.config["NICKNAME"]
+        self.nickname = nickname
 
         logger.info("KahootBot: initialized")
     
@@ -209,7 +211,6 @@ class KahootBot:
             raise Exception("Nickname: invalid")
 
     def is_question_shown(self):
-        
         return self.is_visible(css_selector = '[data-functional-selector="block-title"]') 
     
     def is_multiselect(self):
@@ -301,13 +302,16 @@ try:
     myBot = KahootBot(nickname, False)
 except Exception as e:
     logger.error(f"Bot initialization failed: {e}")
-finally:
-    myBot.driver.quit()
 
 try: 
-    user_game_pin = input("Kahoot game pin: ").strip().lower()
+    if args.gamepin:
+        user_game_pin = args.gamepin
+    else:
+        user_game_pin = input("Kahoot game pin: ").strip().lower()
     myBot.play_game(user_game_pin)
 except Exception as e:
     logger.error(f"Game play failed: {e}")
-finally:
     myBot.driver.quit()
+
+
+    
