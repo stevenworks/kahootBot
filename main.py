@@ -1,3 +1,12 @@
+# Utilities 
+import random
+import time
+import json
+
+# Logging libraries
+import logging
+import argparse
+
 try:
     # Browser interaction
     from selenium import webdriver
@@ -8,15 +17,6 @@ try:
     # Machine learning
     from huggingface_hub.inference_api import InferenceApi
     import os
-
-    # Utilities 
-    import random
-    import time
-    import json
-
-    # Logging libraries
-    import logging
-    import argparse
 except ModuleNotFoundError:
 	if "y" in input("Install dependencies? [y/N] > ").lower():
 		os.system("python3 -m pip install -r requirements.txt")
@@ -28,19 +28,21 @@ def read_config(config_file):
     return config
 
 
-# Logger configuration
+# Argparse configuration
 parser = argparse.ArgumentParser(description="Kahoot Bot")
 parser.add_argument("--debug", action="store_true", help="Enable debug mode")
 parser.add_argument("--nickname", type=str, help="Your Kahoot nickname")
 parser.add_argument("--gamepin", type=int, help="Your Kahoot game-pin")
 args = parser.parse_args()
+
+# Logger configuration
 log_level = logging.DEBUG if args.debug else logging.INFO
 logging.basicConfig(filename="kahoot_bot.log", level=logging.INFO, format="%(asctime)s [%(levelname)s] - %(message)s")
 logger = logging.getLogger("kahoot_bot_logger")
 
 class KahootBot:
     """
-    A Kahoot bot that can join games and answer question autonomously
+    A Kahoot bot that can join games and answer questions autonomously
     """
     config = read_config("configuration.json")
 
