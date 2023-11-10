@@ -2,6 +2,7 @@
 import random
 import time
 import json
+import os
 
 # Logging libraries
 import logging
@@ -15,8 +16,9 @@ try:
     from selenium.webdriver.common.by import By
 
     # Machine learning
-    from huggingface_hub.inference_api import InferenceApi
-    import os
+    from transformers import BertTokenizer, BertForSequenceClassification
+    import torch
+
 except ModuleNotFoundError:
 	if "y" in input("Install dependencies? [y/N] > ").lower():
 		os.system("python3 -m pip install -r requirements.txt")
@@ -51,7 +53,7 @@ class KahootBot:
     KAHOOT_JOIN_URL = f"{KAHOOT_URL}/"
     NICKNAME_PAGE_URL = f"{KAHOOT_URL}/join"
     GAME_BLOCK_URL = f"{KAHOOT_URL}/gameblock"
-    RANKING_URL = "https://kahoot.it/v2/ranking/"
+    RANKING_URL = "https://kahoot.it/ranking/"
 
     def __init__(self, nickname: str = None, is_headless: bool = False):
         """
@@ -63,7 +65,7 @@ class KahootBot:
                 Whether to run bot in headless mode
         """
         self.driver = self.init_driver(is_headless)
-        #self.model = self.init_model()
+        self.model = self.init_model()
 
         if nickname == None:
             self.nickname = self.__class__.config["NICKNAME"]
@@ -93,19 +95,16 @@ class KahootBot:
 
     def init_model(self):
         """
-        Helper function for initializing HuggingFace API object to interact with GPT2 model
-        Args:
-            is_headless: bool
-                Whether to run bot in headless mode
+        Helper function for initializing an NLP model interface
         Returns:
-            model: huggingface_hub.inference_api.InferenceAPI
-                The initialized HuggingFace API object
+            model
+                The initialized NLP model interface
         """
-        self.model_params = {"max_length": 256, "penalty_alpha": 0.6, "top_k": 4}
-        try:
-            return InferenceApi(
-                repo_id="gpt2-large", token=self.__class__.MODEL_API_TOKEN
-            )
+        try: 
+            tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+            model = BertForSequenceClassification.from_pretrained('bert-base-uncased', num_labels=2)
+            return tokenizer, model
+
         except Exception as e:
             raise Exception(f"Model: initialization error - {e}")
 
@@ -116,18 +115,20 @@ class KahootBot:
             question: str
                 The given question
             answer: str
-                The given question
+                The given answer
         Returns:
             is_correct: bool
                 Whether the answer is correct.
         """
         try:
-            prompt = f"{question} {answer}. Is that correct? Say yes or no. "
-            result = self.model(prompt, self.model_params)
-            generated_text = result[0]["generated_text"].lower()
-            if "yes" in generated_text:
-                return True
-            return False
+            text = f"{question} {answer}"
+            inputs = self.model[0](text, return_tensors="pt", truncation=True, padding=True)
+            outputs = self.model[1](**inputs)
+            logits = outputs.logits
+            probabilities = torch.softmax(logits, dim=1)
+            prediction = torch.argmax(probabilities, dim=1).item()
+
+            return prediction == 1  # Assuming 1 corresponds to "CORRECT" class
         except Exception as e:
             raise Exception(f"Answer validation error: {e}")
     
@@ -231,7 +232,6 @@ class KahootBot:
         """
         Retrieves correct answers for a well-defined and provided question
         """
-        return random.choice(viable_answer_elements)
         viable_answers = [
             viable_answer_element.text
             for viable_answer_element in viable_answer_elements

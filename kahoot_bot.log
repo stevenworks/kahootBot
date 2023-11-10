@@ -1,0 +1,61 @@
+2023-11-10 13:30:46,029 [ERROR] - Bot initialization failed: Model: initialization error - name 'BertTokenizer' is not defined
+2023-11-10 13:30:46,098 [ERROR] - Game play failed: name 'myBot' is not defined
+2023-11-10 13:38:39,656 [INFO] - KahootBot: initialized
+2023-11-10 13:38:41,271 [INFO] - Navigation: complete
+2023-11-10 13:38:41,281 [INFO] - Game pin field: found
+2023-11-10 13:38:41,425 [INFO] - Game pin field: submitted
+2023-11-10 13:38:42,454 [INFO] - Nickname field: found
+2023-11-10 13:38:42,515 [INFO] - Nickname field: filled
+2023-11-10 13:38:43,527 [INFO] - Game 1314651: joined
+2023-11-10 13:38:49,436 [ERROR] - Game play failed: Alert Text: {Alert text : 
+Message: unexpected alert open: {Alert text : }
+  (Session info: chrome=119.0.6045.123)
+Stacktrace:
+0   chromedriver                        0x0000000100f6a004 chromedriver + 4169732
+1   chromedriver                        0x0000000100f61ff8 chromedriver + 4136952
+2   chromedriver                        0x0000000100bb7500 chromedriver + 292096
+3   chromedriver                        0x0000000100bc2b14 chromedriver + 338708
+4   chromedriver                        0x0000000100b9f26c chromedriver + 193132
+5   chromedriver                        0x0000000100bc2724 chromedriver + 337700
+6   chromedriver                        0x0000000100c37788 chromedriver + 817032
+7   chromedriver                        0x0000000100bf05e8 chromedriver + 525800
+8   chromedriver                        0x0000000100bf14b8 chromedriver + 529592
+9   chromedriver                        0x0000000100f30334 chromedriver + 3932980
+10  chromedriver                        0x0000000100f34970 chromedriver + 3950960
+11  chromedriver                        0x0000000100f18774 chromedriver + 3835764
+12  chromedriver                        0x0000000100f35478 chromedriver + 3953784
+13  chromedriver                        0x0000000100f0aab4 chromedriver + 3779252
+14  chromedriver                        0x0000000100f51914 chromedriver + 4069652
+15  chromedriver                        0x0000000100f51a90 chromedriver + 4070032
+16  chromedriver                        0x0000000100f61c70 chromedriver + 4136048
+17  libsystem_pthread.dylib             0x000000019db4206c _pthread_start + 148
+18  libsystem_pthread.dylib             0x000000019db3ce2c thread_start + 8
+
+2023-11-10 13:41:27,387 [INFO] - KahootBot: initialized
+2023-11-10 13:41:30,013 [INFO] - Navigation: complete
+2023-11-10 13:41:30,024 [INFO] - Game pin field: found
+2023-11-10 13:41:30,208 [INFO] - Game pin field: submitted
+2023-11-10 13:41:31,230 [INFO] - Nickname field: found
+2023-11-10 13:41:31,288 [INFO] - Nickname field: filled
+2023-11-10 13:41:32,938 [INFO] - Game 3744672: joined
+2023-11-10 13:41:56,295 [INFO] - Question block: started
+2023-11-10 13:41:56,302 [INFO] - Question displayed: True
+2023-11-10 13:41:56,307 [INFO] - Multi-select question: False
+2023-11-10 13:41:56,312 [INFO] - Viable answers: found
+2023-11-10 13:41:56,821 [INFO] - Answer search returned nothing
+2023-11-10 13:41:56,821 [INFO] - Answer: chosen
+2023-11-10 13:41:56,864 [INFO] - Answer: 0 submitted
+2023-11-10 13:42:20,990 [INFO] - Question block: started
+2023-11-10 13:42:20,996 [INFO] - Question displayed: True
+2023-11-10 13:42:21,002 [INFO] - Multi-select question: False
+2023-11-10 13:42:21,008 [INFO] - Viable answers: found
+2023-11-10 13:42:21,154 [INFO] - Answer search returned nothing
+2023-11-10 13:42:21,154 [INFO] - Answer: chosen
+2023-11-10 13:42:21,193 [INFO] - Answer: 1 submitted
+2023-11-10 13:42:30,295 [INFO] - Question block: started
+2023-11-10 13:42:30,299 [INFO] - Question displayed: True
+2023-11-10 13:42:30,304 [INFO] - Multi-select question: False
+2023-11-10 13:42:30,308 [INFO] - Viable answers: found
+2023-11-10 13:42:30,552 [INFO] - Answer search returned nothing
+2023-11-10 13:42:30,552 [INFO] - Answer: chosen
+2023-11-10 13:42:30,574 [INFO] - Answer: 2 submitted
